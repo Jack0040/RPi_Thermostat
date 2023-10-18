@@ -4,7 +4,7 @@ from noaa_sdk import noaa
 n = noaa.NOAA()
 
 # Define the zip code for the location you want to get weather data for
-zip_code = '67801'  # Example zip code (Beverly Hills, CA)
+zip_code = '26505'  # Example zip code (Beverly Hills, CA)
 country_code = 'US'
 
 # Request the latest weather data for the specified zip code
@@ -27,9 +27,10 @@ for observation in observations:
 
 # Convert Celsius to Fahrenheit
 temperature_fahrenheit = (temperature_celsius * 9/5) + 32
-wind_chill_fahrenheit = (wind_chill_celsius * 9/5) + 32
-feels_like_temperature_fahrenheit = (temperature_celsius * 9/5) + 32 + wind_chill_celsius
+if wind_chill_celsius == 0:
+    wind_chill_fahrenheit = temperature_fahrenheit
+else:
+    wind_chill_fahrenheit = (wind_chill_celsius * 9/5) + 32
 
 print(f"Temperature: {temperature_fahrenheit} °F")
-print(f"Wind Chill: {wind_chill_celsius} °C")
-print(f"Feels Like: {feels_like_temperature_fahrenheit} °F")
+print(f"Wind Chill: {wind_chill_fahrenheit} °F")
