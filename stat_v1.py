@@ -11,7 +11,7 @@ relaypin = 23  # Pin that relay is hooked up to
 setpoint = 70 # thermostat setpoint
 overshoot = 1 # Maximum overshoot in degrees before stat no longer calls for heat
 undershoot = 1 # Maximum undershoot in degrees before thermostat calls for heat
-checktime = 1  # Number of seconds to wait before checking temperature
+checktime = 60  # Number of seconds to wait before checking temperature
 zip_code = '26505'
 country_code = 'US'
 
