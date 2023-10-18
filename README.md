@@ -8,3 +8,5 @@ Currently, its only functionality is turning on and off the call for heat given 
 Ultimately, this should include schedules, logic to optomize heat call start times given outdoor temperature, and a webui with historical logging and the ability to override the thermostat and change the schedules. 
 
 This is my first dive into python, so don't expect my code to be any good. Hopefully it works though.
+
+TEST PUSH CHANGES

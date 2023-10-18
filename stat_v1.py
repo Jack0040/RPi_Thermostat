@@ -5,8 +5,8 @@ import time
 
 # Settings for thermostat
 relaypin = 23 # Pin that relay is hooked up to
-maxtemp = 71 #Temp to stop call for heat
-mintemp = 69 #Temp to start call for heat
+maxtemp = 71 # Temp to stop call for heat
+mintemp = 69 # Temp to start call for heat
 checktime = 1 # Number of seconds to wait before checking temperature
 
 GPIO.setmode(GPIO.BCM)
@@ -24,3 +24,4 @@ while 1:
         GPIO.output(relaypin,False)
         print("The thermostat is no longer calling")
     time.sleep(checktime)
+# TEST GIT PUSH
