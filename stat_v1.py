@@ -2,6 +2,7 @@ import RPi.GPIO as GPIO
 import board
 import adafruit_sht4x
 import time
+import 
 
 # Settings for thermostat
 relaypin = 23 # Pin that relay is hooked up to
