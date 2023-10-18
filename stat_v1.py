@@ -3,18 +3,25 @@ import board
 import adafruit_sht4x
 import time
 from noaa_sdk import noaa
+import csv
+from datetime import datetime
 
 # Settings for thermostat
 relaypin = 23  # Pin that relay is hooked up to
-maxtemp = 71  # Temp to stop call for heat
-mintemp = 69  # Temp to start call for heat
+setpoint = 70 # thermostat setpoint
+overshoot = 1 # Maximum overshoot in degrees before stat no longer calls for heat
+undershoot = 1 # Maximum undershoot in degrees before thermostat calls for heat
 checktime = 1  # Number of seconds to wait before checking temperature
 zip_code = '26505'
 country_code = 'US'
 
-# Initialize temperature and wind chill variables
+# Initialize temperature, wind chill, and calling variables
 temperature_celsius = 0  # Default value in Celsius
 wind_chill_celsius = 0  # Default value in Celsius
+calling = False #not sure if I can do this
+
+# CSV filename
+csv_filename = 'trends.csv'
 
 # Set GPIO Settings
 GPIO.setmode(GPIO.BCM)
@@ -24,18 +31,34 @@ GPIO.output(relaypin, False)
 # Initialize the SHT4x sensor
 sht = adafruit_sht4x.SHT4x(board.I2C())
 
+with open(csv_filename, mode='a', newline='') as csv_file:
+    csv_writer = csv.writer(csv_file)
+
+    # Write a header row if the file is empty (first time running the script)
+    if csv_file.tell() == 0:
+        csv_writer.writerow(['Time', 'Room Temperature (°F)', 'Outside Temperature (°F)', 'Wind Chill (°F)'])
+
 while True:
+     # Get current timestamp
+    current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
     # Get Inside Temp
     roomtemperature = (9 / 5) * sht.temperature + 32
-    print(roomtemperature)
+
+
+    # Determine mintemp and maxtemp based on setpoint and over/undershoot (I want this in the loop so that it can be changed by override)
+    mintemp = setpoint - undershoot
+    maxtemp = setpoint + overshoot
 
     # Determine whether or not to call for heat
     if roomtemperature < mintemp:
         GPIO.output(relaypin, True)
-        print("The thermostat is calling.")
+        calling = True #not sure if I can do this
+
     elif roomtemperature > maxtemp:
         GPIO.output(relaypin, False)
-        print("The thermostat is no longer calling")
+        calling = False #not sure if I can do this
+
 
     # Get NOAA Temp
     # Create an instance of the NOAA class
@@ -59,7 +82,15 @@ while True:
     else:
         wind_chill_fahrenheit = (wind_chill_celsius * 9 / 5) + 32
 
-    print(f"Temperature: {temperature_fahrenheit} °F")
+    # Log the data to the CSV file
+    csv_writer.writerow([current_time, roomtemperature, temperature_fahrenheit, wind_chill_fahrenheit])
+    csv_file.flush()
+
+    # Output data to the console
+    print(f"Time: {current_time}")
+    print(f"Room Temperature: {roomtemperature} °F")
+    print(f"Outside Temperature: {temperature_fahrenheit} °F")
     print(f"Wind Chill: {wind_chill_fahrenheit} °F")
+    print(f"Is Thermostat Calling: {calling}") #not sure if I can do this
 
     time.sleep(checktime)
