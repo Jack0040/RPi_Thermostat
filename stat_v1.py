@@ -9,11 +9,9 @@ relaypin = 23 # Pin that relay is hooked up to
 maxtemp = 71 # Temp to stop call for heat
 mintemp = 69 # Temp to start call for heat
 checktime = 1 # Number of seconds to wait before checking temperature
-zipcode = '26505'
-countrycode = 'US'
-# Define the zip code for the location you want to get weather data for
-zip_code = '26505'  # Example zip code (Beverly Hills, CA)
+zip_code = '26505'
 country_code = 'US'
+
 
 # Set GPIO Settings
 GPIO.setmode(GPIO.BCM)
