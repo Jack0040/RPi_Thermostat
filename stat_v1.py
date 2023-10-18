@@ -24,4 +24,3 @@ while 1:
         GPIO.output(relaypin,False)
         print("The thermostat is no longer calling")
     time.sleep(checktime)
-# TEST GIT PUSH
