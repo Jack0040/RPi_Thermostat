@@ -2,7 +2,7 @@ import RPi.GPIO as GPIO
 import board
 import adafruit_sht4x
 import time
-from noaa_sdk import noaaz
+from noaa_sdk import noaa
 
 # Settings for thermostat
 relaypin = 23 # Pin that relay is hooked up to
