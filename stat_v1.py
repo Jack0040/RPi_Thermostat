@@ -78,6 +78,7 @@ while True:
         wind_chill_celsius = wind_chill_info['value'] if wind_chill_info['value'] is not None else 0
         break  # Exit the loop after the first observation
 
+    
     # Convert Celsius to Fahrenheit
     temperature_fahrenheit = (temperature_celsius * 9 / 5) + 32
     if wind_chill_celsius == 0:
@@ -85,13 +86,15 @@ while True:
     else:
         wind_chill_fahrenheit = (wind_chill_celsius * 9 / 5) + 32
 
+    # Log the data to the CSV file
     with open(csv_filename, mode='a', newline='') as csv_file:
         csv_writer = csv.writer(csv_file)
-        # Write a header row if the file is empty (first time running the script)
+
+        # Write a header row if the file is empty
         if csv_file.tell() == 0:
-            csv_writer.writerow(['Time', 'Room Temperature (°F)', 'Outside Temperature (°F)', 'Wind Chill (°F)'])
-        # Log the data to the CSV file
-        csv_writer.writerow([current_time, roomtemperature, temperature_fahrenheit, wind_chill_fahrenheit])
+            csv_writer.writerow(['Time', 'Room Temperature (°F)', 'Outside Temperature (°F)', 'Wind Chill (°F)', 'Heater Status'])
+
+        csv_writer.writerow([current_time, roomtemperature, temperature_fahrenheit, wind_chill_fahrenheit, calling])
         csv_file.flush()
 
     # Output data to the console
@@ -99,6 +102,6 @@ while True:
     print(f"Room Temperature: {roomtemperature} °F")
     print(f"Outside Temperature: {temperature_fahrenheit} °F")
     print(f"Wind Chill: {wind_chill_fahrenheit} °F")
-    print(f"Is Thermostat Calling: {calling}") #not sure if I can do this
+    print(f"Heater Status: {'Running' if calling else 'Off'}")
 
     time.sleep(checktime)
