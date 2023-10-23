@@ -11,7 +11,7 @@ from datetime import datetime
 
 # Settings for thermostat
 relaypin = 23  # Pin that relay is hooked up to
-setpoint = input("What setpoint do you wish ") # thermostat setpoint
+setpoint = int(input("What setpoint do you wish ")) # thermostat setpoint
 overshoot = 1 # Maximum overshoot in degrees before stat no longer calls for heat
 undershoot = 1 # Maximum undershoot in degrees before thermostat calls for heat
 checktime = 60  # Number of seconds to wait before checking temperature
