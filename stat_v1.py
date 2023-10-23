@@ -6,9 +6,12 @@ from noaa_sdk import noaa
 import csv
 from datetime import datetime
 
+
+
+
 # Settings for thermostat
 relaypin = 23  # Pin that relay is hooked up to
-setpoint = 70 # thermostat setpoint
+setpoint = input("What setpoint do you wish ") # thermostat setpoint
 overshoot = 1 # Maximum overshoot in degrees before stat no longer calls for heat
 undershoot = 1 # Maximum undershoot in degrees before thermostat calls for heat
 checktime = 60  # Number of seconds to wait before checking temperature
@@ -81,12 +84,12 @@ while True:
         wind_chill_fahrenheit = temperature_fahrenheit
     else:
         wind_chill_fahrenheit = (wind_chill_celsius * 9 / 5) + 32
-        
+
     with open(csv_filename, mode='a', newline='') as csv_file:
         csv_writer = csv.writer(csv_file)
         # Write a header row if the file is empty (first time running the script)
         if csv_file.tell() == 0:
-        csv_writer.writerow(['Time', 'Room Temperature (°F)', 'Outside Temperature (°F)', 'Wind Chill (°F)'])
+            csv_writer.writerow(['Time', 'Room Temperature (°F)', 'Outside Temperature (°F)', 'Wind Chill (°F)'])
         # Log the data to the CSV file
         csv_writer.writerow([current_time, roomtemperature, temperature_fahrenheit, wind_chill_fahrenheit])
         csv_file.flush()
