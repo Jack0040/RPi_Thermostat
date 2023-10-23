@@ -86,7 +86,7 @@ while True:
 
     # Log the data to the CSV file
     with open(csv_filename, mode='a', newline='') as csv_file:
-        csv_writer = csv.writer(csv_file
+        csv_writer = csv.writer(csv_file)
 
         # Write a header row if the file is empty
         if csv_file.tell() == 0:
