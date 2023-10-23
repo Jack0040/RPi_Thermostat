@@ -72,8 +72,13 @@ while True:
         # Update the timestamp for the last API request
         last_api_request_time = current_timestamp
 
-    # Convert Celsius to Fahrenheit
-    temperature_fahrenheit = (temperature_celsius * 9 / 5) + 32
+    # Check if temperature_celsius is not None before conversion
+    if temperature_celsius is not None:
+        temperature_fahrenheit = (temperature_celsius * 9 / 5) + 32
+    else:
+        temperature_fahrenheit = None
+
+    # Convert wind chill to Fahrenheit
     if wind_chill_celsius == 0:
         wind_chill_fahrenheit = temperature_fahrenheit
     else:
@@ -81,7 +86,7 @@ while True:
 
     # Log the data to the CSV file
     with open(csv_filename, mode='a', newline='') as csv_file:
-        csv_writer = csv.writer(csv_file)
+        csv_writer = csv.writer(csv_file
 
         # Write a header row if the file is empty
         if csv_file.tell() == 0:
