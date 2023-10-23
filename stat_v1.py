@@ -80,7 +80,7 @@ while True:
 
     
     # Convert Celsius to Fahrenheit
-    temperature_fahrenheit = (temperature_celsius * 9 / 5) + 32
+    temperature_fahrenheit = (int(temperature_celsius) * 9 / 5) + 32
     if wind_chill_celsius == 0:
         wind_chill_fahrenheit = temperature_fahrenheit
     else:
