@@ -99,9 +99,9 @@ while True:
 
     # Output data to the console
     print(f"Time: {current_time}")
-    print(f"Room Temperature: {roomtemperature} °F")
-    print(f"Outside Temperature: {temperature_fahrenheit} °F")
-    print(f"Wind Chill: {wind_chill_fahrenheit} °F")
+    print(f"Room Temperature: {roomtemperature}F")
+    print(f"Outside Temperature: {temperature_fahrenheit}F")
+    print(f"Wind Chill: {wind_chill_fahrenheit}F")
     print(f"Heater Status: {'Running' if calling else 'Off'}")
 
     time.sleep(checktime)
